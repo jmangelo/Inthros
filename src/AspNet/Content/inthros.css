@@ -1,0 +1,390 @@
+﻿.ww-code {
+    font-family: 'Consolas, Courier New, monospace';
+    font-size: 13px;
+}
+
+div.ww-activity {
+    border: 1px lightgray solid;
+    border-radius: 2px;
+    display: inline-block;
+    font-size: 12px;
+    font-family: "Arial";
+}
+
+div.ww-activity > div.header {
+    height: 20px;
+    line-height: 20px;
+    vertical-align: middle;
+    border-bottom: 1px lightgray solid;
+    background-color: whitesmoke;
+    display: table;
+    width: 100%;
+}
+
+div.ww-activity > div.header > span.title {
+    display: table-cell;
+    text-align: left;
+    text-indent: 4px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+div.ww-activity > div.header > span.icon {
+    display: table-cell;
+    text-align: center;
+    width: 20px;
+}
+
+div.ww-activity > div.collapsed {
+    display: none;
+}
+
+div.ww-activity.ww-activity-collapsed > div.collapsed {
+    display: block;
+    line-height: 30px;
+    font-style: italic;
+    text-align: center;
+    color: silver;
+}
+
+div.ww-activity.ww-activity-collapsed > div.content {
+    display: none;
+}
+
+div.ww-activity-selected {
+    border: 1px skyblue solid;
+}
+
+div.ww-activity-selected > div.header {
+    border-bottom: 1px skyblue solid;
+    background-color: lightblue;
+}
+
+div.ww-headeronly {
+    min-width: 180px;
+}
+
+div.ww-headeronly > div.header {
+    border-bottom: 0;
+}
+
+div.ww-sequence {
+    min-width: 200px;
+    min-height: 100px;
+}
+
+div.ww-sequence.ww-activity-collapsed {
+    min-width: 200px;
+    min-height: 50px;
+}
+
+div.ww-sequence > div.content {
+    min-height: 80px;
+    padding: 20px 10px 20px 10px;
+    text-align: center;
+}
+
+div.ww-sequence > div.content > div {
+    margin-top: 10px;
+}
+
+div.ww-sequence > div.content > div:first-child {
+    margin-top: 0;
+}
+
+div.ww-parallel {
+    min-width: 200px;
+    min-height: 100px;
+}
+
+div.ww-parallel.ww-activity-collapsed {
+    min-width: 200px;
+    min-height: 50px;
+}
+
+div.ww-parallel > div.content {
+    min-height: 80px;
+    padding: 20px 10px 20px 10px;
+    white-space: nowrap;
+}
+
+div.ww-parallel > div.content > div.ww-activity {
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+div.ww-parallel > div.content > div.ww-activity:first-child {
+    margin-left: 0;
+}
+
+div.ww-writeLine {
+    width: 210px;
+    height: 60px;
+}
+
+div.ww-writeLine > div.content {
+    text-align: initial;
+    line-height: 40px;
+}
+
+div.ww-writeLine > div.content > label {
+    padding-left: 8px;
+    padding-right: 4px;
+}
+
+div.ww-writeLine > div.content > span {
+    border: 1px lightgray solid;
+    padding: 2px;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    line-height: initial;
+    width: 164px;
+    height: 16px;
+}
+
+div.ww-if {
+    min-width: 464px;
+    min-height: 210px;
+}
+
+div.ww-if.ww-activity-collapsed {
+    min-width: 200px;
+    min-height: 50px;
+}
+
+div.ww-if > div.content {
+    text-align: initial;
+    padding-top: 10px;
+}
+
+div.ww-if > div.content > label {
+    padding-left: 8px;
+    padding-right: 4px;
+}
+
+div.ww-if > div.content > div.condition {
+    border: 1px lightgray solid;
+    padding: 2px;
+    margin: 8px;
+}
+
+div.ww-if > div.content > div.container {
+    width: 50%;
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+div.ww-if > div.content div.then, div.ww-if > div.content div.else {
+    text-align: center;
+}
+
+div.ww-if > div.content div.then > div {
+    border: 1px lightgray solid;
+    padding: 2px;
+    padding-top: 14px;
+    margin: 8px;
+    min-height: 100px;
+    min-width: 100px;
+}
+
+div.ww-if > div.content div.else > div {
+    border: 1px lightgray solid;
+    padding: 2px;
+    padding-top: 14px;
+    margin: 8px;
+    min-height: 100px;
+    min-width: 100px;
+}
+
+div.ww-dowhile,
+div.ww-while {
+    min-width: 464px;
+    min-height: 222px;
+}
+
+div.ww-dowhile.ww-activity-collapsed,
+div.ww-while.ww-activity-collapsed {
+    min-width: 200px;
+    min-height: 50px;
+}
+
+div.ww-dowhile > div.content,
+div.ww-while > div.content {
+    text-align: initial;
+    padding-top: 10px;
+}
+
+div.ww-dowhile > div.content > label,
+div.ww-while > div.content > label {
+    padding-left: 8px;
+    padding-right: 4px;
+}
+
+div.ww-dowhile > div.content > div.condition,
+div.ww-while > div.content > div.condition {
+    border: 1px lightgray solid;
+    padding: 2px;
+    margin: 8px;
+}
+
+div.ww-dowhile > div.content > div.body,
+div.ww-while > div.content > div.body {
+    border: 1px lightgray solid;
+    padding: 2px;
+    padding-top: 14px;
+    margin: 8px;
+    min-height: 100px;
+    min-width: 100px;
+}
+
+div.ww-foreach {
+    min-width: 285px;
+    min-height: 210px;
+}
+
+div.ww-foreach.ww-activity-collapsed {
+    min-width: 200px;
+    min-height: 50px;
+}
+
+div.ww-foreach > div.content {
+    text-align: initial;
+    padding-top: 6px;
+}
+
+div.ww-foreach > div.content > label,
+div.ww-foreach > div.content > div.header {
+    padding-left: 8px;
+    padding-right: 4px;
+    padding-bottom: 6px;
+}
+
+div.ww-foreach > div.content > div.header > div {
+    display: inline-block;
+    border: 1px lightgray solid;
+    padding: 2px;
+    margin: 8px;
+}
+
+div.ww-foreach > div.content > div.body {
+    border: 1px lightgray solid;
+    padding: 2px;
+    padding-top: 14px;
+    margin: 8px;
+    min-height: 100px;
+    min-width: 100px;
+}
+
+div.ww-pick {
+    min-width: 200px;
+    min-height: 100px;
+}
+
+div.ww-pick.ww-activity-collapsed {
+    min-width: 200px;
+    min-height: 50px;
+}
+
+div.ww-pick > div.content {
+    min-height: 80px;
+    padding: 20px 10px 20px 10px;
+    white-space: nowrap;
+}
+
+div.ww-pick > div.content > div.ww-activity {
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+div.ww-pick > div.content > div.ww-activity:first-child {
+    margin-left: 0;
+}
+
+div.ww-pickbranch {
+    min-width: 210px;
+    min-height: 315px;
+}
+
+div.ww-pickbranch.ww-activity-collapsed {
+    min-width: 200px;
+    min-height: 50px;
+}
+
+div.ww-pickbranch > div.content {
+    text-align: initial;
+    padding-top: 10px;
+}
+
+div.ww-pickbranch > div.content > label {
+    padding-left: 8px;
+    padding-right: 4px;
+}
+
+div.ww-pickbranch > div.content > div.trigger,
+div.ww-pickbranch > div.content > div.action {
+    border: 1px lightgray solid;
+    padding: 6px;
+    padding-top: 14px;
+    margin: 8px;
+    min-height: 100px;
+    min-width: 100px;
+}
+
+div.ww-delay {
+    width: 210px;
+    height: 60px;
+}
+
+div.ww-delay > div.content {
+    text-align: initial;
+    line-height: 40px;
+}
+
+div.ww-delay > div.content > label {
+    padding-left: 8px;
+    padding-right: 4px;
+}
+
+div.ww-delay > div.content > span {
+    border: 1px lightgray solid;
+    padding: 2px;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    line-height: initial;
+    width: 140px;
+    height: 16px;
+}
+
+div.ww-assign {
+    width: 240px;
+    height: 60px;
+}
+
+div.ww-assign > div.content {
+    text-align: initial;
+    line-height: 40px;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+div.ww-assign > div.content > span {
+    border: 1px lightgray solid;
+    padding: 2px;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    line-height: initial;
+    margin-left: 2px;
+    margin-right: 2px;
+    width: 102px;
+    height: 16px;
+}
