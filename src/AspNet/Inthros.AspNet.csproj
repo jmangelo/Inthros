@@ -34,6 +34,7 @@
     <Reference Include="System" />
     <Reference Include="System.Activities" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel.Activities" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -52,6 +53,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\ActivityView.cs" />
     <Compile Include="Views\AssignView.cs" />
+    <Compile Include="Views\CancellationScopeView.cs" />
+    <Compile Include="Views\CompensableActivityView.cs" />
+    <Compile Include="Views\CorrelationScopeView.cs" />
     <Compile Include="Views\DelayView.cs" />
     <Compile Include="Views\DoWhileView.cs" />
     <Compile Include="Views\EmptyActivityView.cs" />
@@ -59,10 +63,12 @@
     <Compile Include="Views\HeaderOnlyActivityView.cs" />
     <Compile Include="Views\IActivityViewContainer.cs" />
     <Compile Include="Views\IfView.cs" />
+    <Compile Include="Views\NoPersistScopeView.cs" />
     <Compile Include="Views\ParallelView.cs" />
     <Compile Include="Views\PickBranchView.cs" />
     <Compile Include="Views\PickView.cs" />
     <Compile Include="Views\SequenceView.cs" />
+    <Compile Include="Views\TransactionScopeView.cs" />
     <Compile Include="Views\WhileView.cs" />
     <Compile Include="Views\WriteLineView.cs" />
   </ItemGroup>

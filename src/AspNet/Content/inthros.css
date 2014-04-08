@@ -388,3 +388,92 @@ div.ww-assign > div.content > span {
     width: 102px;
     height: 16px;
 }
+
+div.ww-nopersistscope,
+div.ww-cancellationscope,
+div.ww-compensableactivity,
+div.ww-transactionscope {
+    min-width: 200px;
+    min-height: 170px;
+}
+
+div.ww-nopersistscope.ww-activity-collapsed,
+div.ww-cancellationscope.ww-activity-collapsed,
+div.ww-compensableactivity.ww-activity-collapsed,
+div.ww-transactionscope.ww-activity-collapsed {
+    min-width: 200px;
+    min-height: 50px;
+}
+
+div.ww-nopersistscope > div.content,
+div.ww-cancellationscope > div.content,
+div.ww-compensableactivity > div.content,
+div.ww-transactionscope > div.content {
+    text-align: initial;
+    padding-top: 10px;
+}
+
+div.ww-nopersistscope > div.content > label,
+div.ww-cancellationscope > div.content > label,
+div.ww-compensableactivity > div.content > label,
+div.ww-transactionscope > div.content > label {
+    padding-left: 8px;
+    padding-right: 4px;
+}
+
+div.ww-nopersistscope > div.content > div.body,
+div.ww-cancellationscope > div.content > div.body,
+div.ww-cancellationscope > div.content > div.cancellationhandler,
+div.ww-compensableactivity > div.content > div.body,
+div.ww-compensableactivity > div.content > div.compensationhandler,
+div.ww-compensableactivity > div.content > div.confirmationhandler,
+div.ww-compensableactivity > div.content > div.cancellationhandler,
+div.ww-transactionscope > div.content > div.body {
+    border: 1px lightgray solid;
+    padding: 2px;
+    padding-top: 14px;
+    margin: 8px;
+    min-height: 100px;
+    min-width: 100px;
+}
+
+div.ww-correlationscope {
+    min-width: 220px;
+    min-height: 200px;
+}
+
+div.ww-correlationscope.ww-activity-collapsed {
+    min-width: 200px;
+    min-height: 50px;
+}
+
+div.ww-correlationscope > div.content {
+    text-align: initial;
+    padding-top: 2px;
+}
+
+div.ww-correlationscope > div.content > label,
+div.ww-correlationscope > div.content > div.header {
+    padding-left: 8px;
+    padding-right: 4px;
+    padding-bottom: 6px;
+}
+
+div.ww-correlationscope > div.content > div.header > div {
+    display: inline-block;
+    vertical-align: middle;
+    border: 1px lightgray solid;
+    padding: 2px;
+    margin: 8px;
+    min-width: 95px;
+    min-height: 20px;
+}
+
+div.ww-correlationscope > div.content > div.body {
+    border: 1px lightgray solid;
+    padding: 2px;
+    padding-top: 14px;
+    margin: 8px;
+    min-height: 100px;
+    min-width: 100px;
+}

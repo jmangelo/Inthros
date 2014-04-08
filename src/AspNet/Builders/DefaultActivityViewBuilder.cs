@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Activities;
 using System.Activities.Statements;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
+using System.ServiceModel.Activities;
 using Inthros.AspNet.Views;
 using Inthros.Core.Utilities;
 
@@ -17,12 +19,17 @@ namespace Inthros.AspNet.Builders
 
         static DefaultActivityViewBuilder()
         {
+            // TODO : P2 : Consider sorting the supported types collections instead of the dictionary
+
+            // The comparer is used so that the keys are sorted and the compatible type
+            // is found in the correct order but it's probably better to sort the
+            // supported types collections instead of the dictionary
             var typeComparer = new InheritanceTypeComparer();
 
             activityTypeToBuildFunctionMap = new SortedDictionary<Type, Func<object, ActivityView>>(typeComparer)
             {
                 { typeof (Sequence), a => BuildSequenceView((Sequence) a) },
-                { typeof (Persist), a => BuildPersistView((Persist) a) },
+                { typeof (Persist), a => BuildHeaderOnlyView((Activity) a) },
                 { typeof (If), a => BuildIfView((If) a) },
                 { typeof (Parallel), a => BuildParallelView((Parallel) a) },
                 { typeof (DoWhile), a => BuildDoWhileView((DoWhile) a) },
@@ -35,12 +42,142 @@ namespace Inthros.AspNet.Builders
                 { typeof (ForEach<>), a => BuildForEachView((dynamic) a) },
                 { typeof (ParallelForEach<>), a => BuildParallelForEachView((dynamic) a) },
                 { typeof (Assign<>), a => BuildAssignView((dynamic) a) },
+                { typeof (AddToCollection<>), a => BuildHeaderOnlyView((Activity) a) },
+                { typeof (ClearCollection<>), a => BuildHeaderOnlyView((Activity) a) },
+                { typeof (ExistsInCollection<>), a => BuildHeaderOnlyView((Activity) a) },
+                { typeof (RemoveFromCollection<>), a => BuildHeaderOnlyView((Activity) a) },
+                { typeof (Compensate), a => BuildHeaderOnlyView((Activity) a) },
+                { typeof (Confirm), a => BuildHeaderOnlyView((Activity) a) },
+                { typeof (Rethrow), a => BuildHeaderOnlyView((Activity) a) },
+                { typeof (Throw), a => BuildHeaderOnlyView((Activity) a) },
+                { typeof (TerminateWorkflow), a => BuildHeaderOnlyView((Activity) a) },
+                { typeof (CorrelationScope), a => BuildCorrelationScopeView((CorrelationScope) a) },
+                { typeof (CancellationScope), a => BuildCancellationScopeView((CancellationScope) a) },
+                { typeof (CompensableActivity), a => BuildCompensableActivityView((CompensableActivity) a) },
+                { typeof (TransactionScope), a => BuildTransactionScopeView((TransactionScope) a) },
+                { typeof (NoPersistScope), a => BuildNoPersistScopeView((NoPersistScope) a) },
+                //{ typeof (Activity), a => BuildHeaderOnlyView((Activity) a) },
             };
+
+            // TODO : P1 : CorrelationScope
+            // TODO : P1 : CancellationScope
+            // TODO : P1 : CompensableActivity
+            // TODO : P1 : TransactionScope
+            // TODO : P1 : NoPersistScope
+
+            // TODO : P1 : TryCatch
+            // TODO : P1 : InvokeDelegate
+            // TODO : P1 : InvokeMethod
+            // TODO : P1 : InitializeCorrelation
+            // TODO : P1 : Receive
+            // TODO : P1 : ReceiveReply
+            // TODO : P1 : Send
+            // TODO : P1 : SendReply
+            // TODO : P1 : TransactedReceiveScope
+            // TODO : P1 : Switch<T>
+            // TODO : P1 : Interop
+            // TODO : P1 : Flow Chart Activities
+            // TODO : P1 : State Machine Activities
 
             supportedActivityTypes = new ReadOnlyCollection<Type>(activityTypeToBuildFunctionMap.Keys.ToList());
         }
 
-        private static ActivityView BuildPersistView(Persist source)
+        public override IReadOnlyCollection<Type> SupportedTypes
+        {
+            get { return supportedActivityTypes; }
+        }
+
+        public override ActivityView Build(object activity)
+        {
+            if (activity == null)
+            {
+                throw new ArgumentNullException("activity");
+            }
+
+            var activityType = activity.GetType();
+
+            var keyType = FindCompatibleSuppportedType(activityType);
+
+            if (keyType == null)
+            {
+                string message = string.Format(
+                    CultureInfo.InvariantCulture,
+                    "The activity type ({0}) is not supported.",
+                    activityType.FullName);
+
+                throw new ArgumentException(message, "activity")
+                {
+                    Data = { { "SupportedTypes", this.SupportedTypes } },
+                };
+            }
+
+            return activityTypeToBuildFunctionMap[keyType](activity);
+        }
+
+        private static ActivityView BuildNoPersistScopeView(NoPersistScope source)
+        {
+            string activityId = ObjectIdManager.GetId(source);
+
+            var view = new NoPersistScopeView(activityId)
+            {
+                ActivityName = source.DisplayName,
+            };
+
+            return view;
+        }
+
+        private static ActivityView BuildTransactionScopeView(TransactionScope source)
+        {
+            string activityId = ObjectIdManager.GetId(source);
+
+            var view = new TransactionScopeView(activityId)
+            {
+                ActivityName = source.DisplayName,
+            };
+
+            return view;
+        }
+
+        private static ActivityView BuildCompensableActivityView(CompensableActivity source)
+        {
+            string activityId = ObjectIdManager.GetId(source);
+
+            var view = new CompensableActivityView(activityId)
+            {
+                ActivityName = source.DisplayName,
+            };
+
+            return view;
+        }
+
+        private static ActivityView BuildCancellationScopeView(CancellationScope source)
+        {
+            string activityId = ObjectIdManager.GetId(source);
+
+            var view = new CancellationScopeView(activityId)
+            {
+                ActivityName = source.DisplayName,
+            };
+
+            return view;
+        }
+
+        private static ActivityView BuildCorrelationScopeView(CorrelationScope source)
+        {
+            string activityId = ObjectIdManager.GetId(source);
+
+            string correlatesWidth = ExpressionConvert.ToString(source.CorrelatesWith);
+
+            var view = new CorrelationScopeView(activityId)
+            {
+                ActivityName = source.DisplayName,
+                CorrelatesWith = correlatesWidth,
+            };
+
+            return view;
+        }
+
+        private static ActivityView BuildHeaderOnlyView(Activity source)
         {
             string activityId = ObjectIdManager.GetId(source);
 
@@ -236,38 +373,6 @@ namespace Inthros.AspNet.Builders
             };
 
             return view;
-        }
-
-        public override ActivityView Build(object activity)
-        {
-            if (activity == null)
-            {
-                throw new ArgumentNullException("activity");
-            }
-
-            var activityType = activity.GetType();
-
-            var keyType = FindCompatibleSuppportedType(activityType);
-
-            if (keyType == null)
-            {
-                string message = string.Format(
-                    CultureInfo.InvariantCulture,
-                    "The activity type ({0}) is not supported.",
-                    activityType.FullName);
-
-                throw new ArgumentException(message, "activity")
-                {
-                    Data = { { "SupportedTypes", this.SupportedTypes } },
-                };
-            }
-
-            return activityTypeToBuildFunctionMap[keyType](activity);
-        }
-
-        public override IReadOnlyCollection<Type> SupportedTypes
-        {
-            get { return supportedActivityTypes; }
         }
 
         private Type FindCompatibleSuppportedType(Type source)

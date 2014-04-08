@@ -1,6 +1,8 @@
 ﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="Sample.Workflows.SampleActivity1" this:SampleActivity1.InArg1="1"
  xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mca="clr-namespace:Microsoft.CSharp.Activities;assembly=System.Activities"
+ xmlns:p="http://schemas.microsoft.com/netfx/2009/xaml/servicemodel"
  xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
  xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
  xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
@@ -24,81 +26,57 @@
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
     <sco:Collection x:TypeArguments="AssemblyReference">
-      <AssemblyReference>Microsoft.CSharp</AssemblyReference>
       <AssemblyReference>System</AssemblyReference>
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>System.Core</AssemblyReference>
-      <AssemblyReference>System.Data</AssemblyReference>
-      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
-      <AssemblyReference>System.ServiceModel</AssemblyReference>
       <AssemblyReference>System.ServiceModel.Activities</AssemblyReference>
       <AssemblyReference>System.Xaml</AssemblyReference>
-      <AssemblyReference>System.Xml</AssemblyReference>
       <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>Microsoft.CSharp</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
-      <AssemblyReference>Sample.Workflows</AssemblyReference>
+      <AssemblyReference>Inthros.Samples.Workflows</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence sap2010:WorkflowViewState.IdRef="Sequence_1">
-    <Parallel sap2010:WorkflowViewState.IdRef="Parallel_1">
-      <WriteLine sap2010:WorkflowViewState.IdRef="WriteLine_2" Text="Hello World! This is just a test..." />
-      <WriteLine sap2010:WorkflowViewState.IdRef="WriteLine_3" Text="Hello World! This is just a test..." />
-      <WriteLine sap2010:WorkflowViewState.IdRef="WriteLine_4" Text="Hello World! This is just a test..." />
-    </Parallel>
-    <DoWhile sap2010:WorkflowViewState.IdRef="DoWhile_1" Condition="False" />
-    <If Condition="True" sap2010:WorkflowViewState.IdRef="If_1">
-      <If.Then>
-        <WriteLine sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="Hello World! This is just a test..." />
-      </If.Then>
-      <If.Else>
-        <Delay Duration="01:00:00" sap2010:WorkflowViewState.IdRef="Delay_1" />
-      </If.Else>
-    </If>
-    <If Condition="False" sap2010:WorkflowViewState.IdRef="If_2">
-      <If.Then>
-        <Delay Duration="00:01:00" sap2010:WorkflowViewState.IdRef="Delay_2" />
-      </If.Then>
-      <If.Else>
-        <Delay Duration="00:01:00" sap2010:WorkflowViewState.IdRef="Delay_3" />
-      </If.Else>
-    </If>
-    <sads:DebugSymbol.Symbol>d0REOlxDT0RFWFxQcm9qZWN0c1xXZWIuV29ya2Zsb3dcU2FtcGxlLldvcmtmbG93c1xTYW1wbGVBY3Rpdml0eTEueGFtbBcBcgF0AQIqA0IOAgEBKwUvEAIBEDAFME4CAQ4xBTgKAgEIOQVACgIBAiwHLG0CARUtBy1tAgETLgcubQIBETBEMEsCAQ8xEzEZAgEJMwkzbwIBDDYJNlACAQo5EzkaAgEDOwk7UAIBBj4JPlACAQQsRSxqAgEWLUUtagIBFC5FLmoCARIzRzNsAgENNhk2IwIBCzsZOyMCAQc+GT4jAgEF</sads:DebugSymbol.Symbol>
+    <ForEach x:TypeArguments="x:Int32">
+      <ForEach.Values>
+        <InArgument x:TypeArguments="scg:IEnumerable(x:Int32)">
+          <mca:CSharpValue x:TypeArguments="scg:IEnumerable(x:Int32)">new [] {1}</mca:CSharpValue>
+        </InArgument>
+      </ForEach.Values>
+      <ActivityAction x:TypeArguments="x:Int32">
+        <ActivityAction.Argument>
+          <DelegateInArgument x:TypeArguments="x:Int32" Name="item" />
+        </ActivityAction.Argument>
+      </ActivityAction>
+      <sap2010:WorkflowViewState.IdRef>ForEach`1_1</sap2010:WorkflowViewState.IdRef>
+    </ForEach>
+    <p:CorrelationScope Body="{x:Null}" sap2010:WorkflowViewState.IdRef="CorrelationScope_1" />
+    <NoPersistScope sap2010:WorkflowViewState.IdRef="NoPersistScope_1" />
+    <TransactionScope sap2010:WorkflowViewState.IdRef="TransactionScope_1" />
+    <CompensableActivity sap2010:WorkflowViewState.IdRef="CompensableActivity_1" />
+    <CancellationScope sap2010:WorkflowViewState.IdRef="CancellationScope_1" />
+    <sads:DebugSymbol.Symbol>d0BEOlxDT0RFWFxQcm9qZWN0c1xJbnRocm9zXHNhbXBsZXNcV29ya2Zsb3dzXFNhbXBsZUFjdGl2aXR5MS54YW1sCQFyAXQBAisDPw4CAQEsBTgPAgEIOQU5YAIBBzoFOkoCAQY7BTtOAgEEPAU8VAIBAz0FPVACAQIvCy9jAgEJ</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="WriteLine_2" sap:VirtualizedContainerService.HintSize="211,62" />
-      <sap2010:ViewStateData Id="WriteLine_3" sap:VirtualizedContainerService.HintSize="211,62" />
-      <sap2010:ViewStateData Id="WriteLine_4" sap:VirtualizedContainerService.HintSize="211,62" />
-      <sap2010:ViewStateData Id="Parallel_1" sap:VirtualizedContainerService.HintSize="827,108" />
-      <sap2010:ViewStateData Id="DoWhile_1" sap:VirtualizedContainerService.HintSize="827,224" />
-      <sap2010:ViewStateData Id="WriteLine_1" sap:VirtualizedContainerService.HintSize="211,62" />
-      <sap2010:ViewStateData Id="Delay_1" sap:VirtualizedContainerService.HintSize="200,22" />
-      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="827,212">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            <x:Boolean x:Key="IsPinned">False</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Delay_2" sap:VirtualizedContainerService.HintSize="200,22" />
-      <sap2010:ViewStateData Id="Delay_3" sap:VirtualizedContainerService.HintSize="200,22" />
-      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="827,210">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            <x:Boolean x:Key="IsPinned">False</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="849,998">
+      <sap2010:ViewStateData Id="ForEach`1_1" sap:VirtualizedContainerService.HintSize="287,210" />
+      <sap2010:ViewStateData Id="CorrelationScope_1" sap:VirtualizedContainerService.HintSize="287,199" />
+      <sap2010:ViewStateData Id="NoPersistScope_1" sap:VirtualizedContainerService.HintSize="287,183" />
+      <sap2010:ViewStateData Id="TransactionScope_1" sap:VirtualizedContainerService.HintSize="287,183" />
+      <sap2010:ViewStateData Id="CompensableActivity_1" sap:VirtualizedContainerService.HintSize="287,480" />
+      <sap2010:ViewStateData Id="CancellationScope_1" sap:VirtualizedContainerService.HintSize="287,282" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="309,1861">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sample.Workflows.SampleActivity1_1" sap:VirtualizedContainerService.HintSize="889,1078" />
+      <sap2010:ViewStateData Id="Sample.Workflows.SampleActivity1_1" sap:VirtualizedContainerService.HintSize="349,1941" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

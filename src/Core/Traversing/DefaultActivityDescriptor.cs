@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
+using System.ServiceModel.Activities;
 using Inthros.Core.Utilities;
 
 namespace Inthros.Core.Traversing
@@ -35,6 +36,11 @@ namespace Inthros.Core.Traversing
                 { typeof (ParallelForEach<>), a => GetParallelForEachChildren((dynamic) a) },
                 { typeof (Persist), a => new ActivityInfo[0] },
                 { typeof (Assign<>), a => new ActivityInfo[0] },
+                { typeof (CorrelationScope), a => GetCorrelationScopeChildren((CorrelationScope) a) },
+                { typeof (CancellationScope), a => GetCancellationScopeChildren((CancellationScope) a) },
+                { typeof (CompensableActivity), a => GetCompensableActivityChildren((CompensableActivity) a) },
+                { typeof (TransactionScope), a => GetTransactionScopeChildren((TransactionScope) a) },
+                { typeof (NoPersistScope), a => GetNoPersistScopeChildren((NoPersistScope) a) },
                 { typeof (Activity), a => GetActivityChildren((Activity) a) },
             };
 
@@ -81,6 +87,86 @@ namespace Inthros.Core.Traversing
             }
 
             return activityTypeToGetChildrenFunctionMap[keyType](activity);
+        }
+
+        private static ActivityInfo[] GetNoPersistScopeChildren(NoPersistScope activity)
+        {
+            var children = new List<ActivityInfo>();
+
+            if (activity.Body != null)
+            {
+                children.Add(new ActivityInfo(activity.Body, activity, "Body"));
+            }
+
+            return children.ToArray();
+        }
+
+        private static ActivityInfo[] GetTransactionScopeChildren(TransactionScope activity)
+        {
+            var children = new List<ActivityInfo>();
+
+            if (activity.Body != null)
+            {
+                children.Add(new ActivityInfo(activity.Body, activity, "Body"));
+            }
+
+            return children.ToArray();
+        }
+
+        private static ActivityInfo[] GetCompensableActivityChildren(CompensableActivity activity)
+        {
+            var children = new List<ActivityInfo>();
+
+            if (activity.Body != null)
+            {
+                children.Add(new ActivityInfo(activity.Body, activity, "Body"));
+            }
+
+            if (activity.CompensationHandler != null)
+            {
+                children.Add(new ActivityInfo(activity.CompensationHandler, activity, "CompensationHandler"));
+            }
+
+            if (activity.ConfirmationHandler != null)
+            {
+                children.Add(new ActivityInfo(activity.ConfirmationHandler, activity, "ConfirmationHandler"));
+            }
+
+            if (activity.CancellationHandler != null)
+            {
+                children.Add(new ActivityInfo(activity.CancellationHandler, activity, "CancellationHandler"));
+            }
+
+            return children.ToArray();
+        }
+
+        private static ActivityInfo[] GetCancellationScopeChildren(CancellationScope activity)
+        {
+            var children = new List<ActivityInfo>();
+
+            if (activity.Body != null)
+            {
+                children.Add(new ActivityInfo(activity.Body, activity, "Body"));
+            }
+
+            if (activity.CancellationHandler != null)
+            {
+                children.Add(new ActivityInfo(activity.CancellationHandler, activity, "CancellationHandler"));
+            }
+
+            return children.ToArray();
+        }
+
+        private static ActivityInfo[] GetCorrelationScopeChildren(CorrelationScope activity)
+        {
+            var children = new List<ActivityInfo>();
+
+            if (activity.Body != null)
+            {
+                children.Add(new ActivityInfo(activity.Body, activity, "Body"));
+            }
+
+            return children.ToArray();
         }
 
         private static ActivityInfo[] GetSequenceChildren(Sequence activity)
