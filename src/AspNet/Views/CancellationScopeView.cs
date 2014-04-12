@@ -50,12 +50,12 @@ namespace Inthros.AspNet.Views
             writer.RenderEndTag();
         }
 
-        void IActivityViewContainer.Add(ActivityView view)
+        void IActivityViewContainer.Add(ActivityView view, string scope)
         {
-            if (this.Body == EmptyActivityView.Instance)
+            if (scope == "Body")
             {
                 this.Body = view;
-            } else if (this.CancellationHandler == EmptyActivityView.Instance)
+            } else if (scope == "CancellationHandler")
             {
                 this.CancellationHandler = view;
             }

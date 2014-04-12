@@ -47,13 +47,13 @@ namespace Inthros.AspNet.Views
             writer.RenderEndTag();
         }
 
-        void IActivityViewContainer.Add(ActivityView view)
+        void IActivityViewContainer.Add(ActivityView view, string scope)
         {
-            if (this.Trigger == EmptyActivityView.Instance)
+            if (scope == "Trigger")
             {
                 this.Trigger = view;
             }
-            else if (this.Action == EmptyActivityView.Instance)
+            else if (scope == "Action")
             {
                 this.Action = view;
             }

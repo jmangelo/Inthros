@@ -61,7 +61,7 @@ namespace Inthros.AspNet.Views
             writer.RenderEndTag();
         }
 
-        void IActivityViewContainer.Add(ActivityView view)
+        void IActivityViewContainer.Add(ActivityView view, string scope)
         {
             this.Body = view;
         }

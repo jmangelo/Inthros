@@ -59,12 +59,6 @@ namespace Inthros.AspNet.Builders
                 //{ typeof (Activity), a => BuildHeaderOnlyView((Activity) a) },
             };
 
-            // TODO : P1 : CorrelationScope
-            // TODO : P1 : CancellationScope
-            // TODO : P1 : CompensableActivity
-            // TODO : P1 : TransactionScope
-            // TODO : P1 : NoPersistScope
-
             // TODO : P1 : TryCatch
             // TODO : P1 : InvokeDelegate
             // TODO : P1 : InvokeMethod

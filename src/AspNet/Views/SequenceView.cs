@@ -32,7 +32,7 @@ namespace Inthros.AspNet.Views
             }
         }
 
-        void IActivityViewContainer.Add(ActivityView view)
+        void IActivityViewContainer.Add(ActivityView view, string scope)
         {
             this.Children.Add(view);
         }

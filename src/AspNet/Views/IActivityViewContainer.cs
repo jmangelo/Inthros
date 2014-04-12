@@ -4,9 +4,7 @@ namespace Inthros.AspNet.Views
 {
     public interface IActivityViewContainer
     {
-        // TODO : P1 : Pass context information in add method (parent property)
-
-        void Add(ActivityView view);
+        void Add(ActivityView view, string scope);
 
         IReadOnlyCollection<ActivityView> ActivityViews { get; }
     }

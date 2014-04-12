@@ -54,7 +54,7 @@ namespace Inthros.AspNet
 
                 if (parentView != null)
                 {
-                    parentView.Add(view);
+                    parentView.Add(view, this.CurrentParentPropertyName);
                 }
             }
         }
