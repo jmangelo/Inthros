@@ -12,6 +12,7 @@
     </head>
     <body>
         <form id="form1" runat="server">
+            <h1>Workflow Activity View</h1>
             <asp:ScriptManager runat="server">
                 <Scripts>
                     <asp:ScriptReference Name="jquery.js" />
