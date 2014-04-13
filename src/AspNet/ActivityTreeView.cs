@@ -1,11 +1,14 @@
-﻿using System.Activities;
+﻿using System;
+using System.Activities;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace Inthros.AspNet
 {
     [ToolboxData(@"<{0}:ActivityTreeView runat=""server""> </{0}:ActivityTreeView>")]
-    public sealed class ActivityTreeView : WebControl
+    public sealed class ActivityTreeView : WebControl, IScriptControl
     {
         public ActivityTreeView()
             : base(HtmlTextWriterTag.Div)
@@ -27,20 +30,45 @@ namespace Inthros.AspNet
             }
         }
 
-        public Activity ActivityTree { get; set; }
+        private Activity activityTree;
+
+        public Activity ActivityTree
+        {
+            get { return this.activityTree; }
+            set
+            {
+                this.activityTree = value;
+
+                if (this.activityTree != null)
+                {
+                    var activityViewTreeActivityVisitor = new ActivityViewTreeActivityVisitor();
+
+                    this.ActivityViewTree = activityViewTreeActivityVisitor.CreateActivityViewTree(this.ActivityTree);
+                }
+                else
+                {
+                    this.ActivityViewTree = null;
+                }
+            }
+        }
 
         private ActivityViewTree ActivityViewTree { get; set; }
 
-        protected override void OnLoad(System.EventArgs e)
+        private ScriptManager ScriptManager { get; set; }
+
+        protected override void OnPreRender(EventArgs e)
         {
-            base.OnLoad(e);
-
-            if (this.ActivityTree != null)
+            if (!this.DesignMode)
             {
-                var activityViewTreeActivityVisitor = new ActivityViewTreeActivityVisitor();
+                this.ScriptManager = ScriptManager.GetCurrent(this.Page);
 
-                this.ActivityViewTree = activityViewTreeActivityVisitor.CreateActivityViewTree(this.ActivityTree);
+                if (this.ScriptManager == null)
+                    throw new InvalidOperationException("A ScriptManager control must exist on the current page.");
+
+                this.ScriptManager.RegisterScriptControl(this);
             }
+
+            base.OnPreRender(e);
         }
 
         protected override void RenderContents(HtmlTextWriter writer)
@@ -49,6 +77,28 @@ namespace Inthros.AspNet
             {
                 this.ActivityViewTree.Render(writer);
             }
+        }
+
+        IEnumerable<ScriptDescriptor> IScriptControl.GetScriptDescriptors()
+        {
+            return Enumerable.Empty<ScriptDescriptor>();
+        }
+
+        IEnumerable<ScriptReference> IScriptControl.GetScriptReferences()
+        {
+            var jQuery = new ScriptReference
+            {
+                Name = "jquery.js",
+                Assembly = typeof(ActivityTreeView).Assembly.FullName,
+            };
+
+            var inthros = new ScriptReference
+            {
+                Name = "inthros.js",
+                Assembly = typeof(ActivityTreeView).Assembly.FullName,
+            };
+
+            return new[] { jQuery, inthros };
         }
     }
 }

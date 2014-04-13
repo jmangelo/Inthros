@@ -12,11 +12,14 @@
     </head>
     <body>
         <form id="form1" runat="server">
+            <asp:ScriptManager runat="server">
+                <Scripts>
+                    <asp:ScriptReference Name="jquery.js" />
+                </Scripts>
+            </asp:ScriptManager>
             <div>
                 <wf:ActivityTreeView runat="server" ID="ActivityTreeView" />
             </div>
         </form>
-        <script src="Scripts/jquery-2.1.0.js"></script>
-        <script src="Scripts/inthros.js"></script>
     </body>
 </html>

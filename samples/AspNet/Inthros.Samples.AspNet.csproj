@@ -62,11 +62,8 @@
       <Link>Content\inthros.css</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\src\AspNet\Scripts\inthros.js">
-      <Link>Scripts\inthros.js</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Default.aspx" />
+    <Content Include="Global.asax" />
     <Content Include="packages.config" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
@@ -80,6 +77,9 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -129,8 +129,7 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>xcopy /Y /E "$(TargetDir)\Scripts" "$(ProjectDir)\Scripts"
-xcopy /Y /E "$(TargetDir)\Content" "$(ProjectDir)\Content"</PostBuildEvent>
+    <PostBuildEvent>xcopy /Y /E "$(TargetDir)\Content" "$(ProjectDir)\Content"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

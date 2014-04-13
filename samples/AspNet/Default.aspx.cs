@@ -10,7 +10,7 @@ namespace Inthros.Samples.AspNet
         {
             base.OnLoad(e);
 
-            this.ActivityTreeView.ActivityTree = new SampleActivity1();
+            this.ActivityTreeView.ActivityTree = new SampleActivity2();
         }
     }
 }

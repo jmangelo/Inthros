@@ -36,6 +36,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.ServiceModel.Activities" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -71,6 +72,7 @@
     <Compile Include="Views\TransactionScopeView.cs" />
     <Compile Include="Views\WhileView.cs" />
     <Compile Include="Views\WriteLineView.cs" />
+    <Compile Include="WebResources.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Inthros.Core.csproj">
@@ -80,7 +82,20 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\inthros.css" />
-    <Content Include="Scripts\inthros.js" />
+    <Content Include="Scripts\jquery-2.1.0.intellisense.js" />
+    <EmbeddedResource Include="Scripts\jquery-2.1.0.js">
+      <LogicalName>jquery.debug.js</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scripts\jquery-2.1.0.min.js">
+      <LogicalName>jquery.js</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scripts\inthros.js">
+      <LogicalName>inthros.js</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Scripts\jquery-2.1.0.min.map" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
