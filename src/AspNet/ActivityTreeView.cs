@@ -3,6 +3,7 @@ using System.Activities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace Inthros.AspNet
@@ -63,9 +64,39 @@ namespace Inthros.AspNet
                 this.ScriptManager = ScriptManager.GetCurrent(this.Page);
 
                 if (this.ScriptManager == null)
-                    throw new InvalidOperationException("A ScriptManager control must exist on the current page.");
+                {
+                    throw new InvalidOperationException(
+                        "A ScriptManager control must exist on the current page.");
+                }
 
                 this.ScriptManager.RegisterScriptControl(this);
+            }
+
+            if (this.Page.Header == null)
+            {
+                throw new InvalidOperationException(
+                    "The Page Header must have a runat='server' attribute.");
+            }
+
+            if (!this.Page.Header.Controls.Cast<Control>().Any(c => c.ID == WebResourceNames.CssInthros))
+            {
+                var inthrosCsslink = new StyleSheetLink {
+                    ID = WebResourceNames.CssInthros,
+                    Href = this.Page.ClientScript.GetWebResourceUrl(typeof(ActivityTreeView), WebResourceNames.CssInthros),
+                };
+
+                this.Page.Header.Controls.Add(inthrosCsslink);
+            }
+
+            if (!this.Page.Header.Controls.Cast<Control>().Any(c => c.ID == WebResourceNames.CssFontAwesome))
+            {
+                var fontAwesomeCsslink = new StyleSheetLink
+                {
+                    ID = WebResourceNames.CssFontAwesome,
+                    Href = this.Page.ClientScript.GetWebResourceUrl(typeof(ActivityTreeView), WebResourceNames.CssFontAwesome),
+                };
+
+                this.Page.Header.Controls.Add(fontAwesomeCsslink);
             }
 
             base.OnPreRender(e);

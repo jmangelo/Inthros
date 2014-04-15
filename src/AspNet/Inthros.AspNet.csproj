@@ -52,6 +52,7 @@
     <Compile Include="Builders\IActivityViewBuilder.cs" />
     <Compile Include="Builders\DefaultActivityViewBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StyleSheetLink.cs" />
     <Compile Include="Views\ActivityView.cs" />
     <Compile Include="Views\AssignView.cs" />
     <Compile Include="Views\CancellationScopeView.cs" />
@@ -81,7 +82,18 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\inthros.css" />
+    <EmbeddedResource Include="Styles\font-awesome.css">
+      <LogicalName>font-awesome.css</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Styles\font-awesome.min.css">
+      <LogicalName>font-awesome.min.css</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Styles\Fonts\fontawesome-webfont.svg">
+      <LogicalName>fontawesome-webfont.svg</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Styles\inthros.css">
+      <LogicalName>inthros.css</LogicalName>
+    </EmbeddedResource>
     <Content Include="Scripts\jquery-2.1.0.intellisense.js" />
     <EmbeddedResource Include="Scripts\jquery-2.1.0.js">
       <LogicalName>jquery.debug.js</LogicalName>
@@ -96,6 +108,18 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Scripts\jquery-2.1.0.min.map" />
+    <EmbeddedResource Include="Styles\Fonts\fontawesome-webfont.eot">
+      <LogicalName>fontawesome-webfont.eot</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Styles\Fonts\fontawesome-webfont.ttf">
+      <LogicalName>fontawesome-webfont.ttf</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Styles\Fonts\fontawesome-webfont.woff">
+      <LogicalName>fontawesome-webfont.woff</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Styles\Fonts\FontAwesome.otf">
+      <LogicalName>FontAwesome.otf</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
